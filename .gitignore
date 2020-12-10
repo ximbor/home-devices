@@ -338,3 +338,10 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/HomeDevice/.vs
+/HomeDevice/bin
+/HomeDevice/obj
+/HomeDevices.Core/bin
+/HomeDevices.Core/obj
+/HomeDevices.Tests/obj
+/HomeDevices.Tests/bin
