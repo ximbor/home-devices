@@ -1,0 +1,9 @@
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\bin\Debug\netcoreapp3.1\HomeDevices.Core.deps.json
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\bin\Debug\netcoreapp3.1\HomeDevices.Core.dll
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\bin\Debug\netcoreapp3.1\HomeDevices.Core.pdb
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.csprojAssemblyReference.cache
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.AssemblyInfoInputs.cache
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.AssemblyInfo.cs
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.dll
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.pdb
+C:\Users\ximbor\Desktop\GoogleCloud_assignment\HomeDevice\HomeDevices.Core\obj\Debug\netcoreapp3.1\HomeDevices.Core.csproj.CoreCompileInputs.cache
