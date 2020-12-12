@@ -1,5 +1,5 @@
-using HomeDevices.Database;
-using HomeDevices.Database.Providers;
+using HomeDevices.Core.Database;
+using HomeDevices.Core.Database.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -41,35 +41,35 @@ namespace HomeDevices
                 endpoints.MapHealthChecks("/health");
             });
 
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<DevicesContext>();
-                context.Database.EnsureCreated();
+            //using (var serviceScope = app.ApplicationServices.CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetService<DevicesContext>();
+            //    context.Database.EnsureCreated();
 
-                //// Test data
-                //var consumerId = System.Guid.NewGuid();
+            //    //// Test data
+            //    //var consumerId = System.Guid.NewGuid();
 
-                //var consumer = new Consumer()
-                //{
-                //    ConsumerId = consumerId,
-                //    FirstName = "Simone",
-                //    LastName = "Borda",
-                //    Address = "Via xxx",
-                //    Email = "simoneb81@gmail.com"
-                //};
+            //    //var consumer = new Consumer()
+            //    //{
+            //    //    ConsumerId = consumerId,
+            //    //    FirstName = "Simone",
+            //    //    LastName = "Borda",
+            //    //    Address = "Via xxx",
+            //    //    Email = "simoneb81@gmail.com"
+            //    //};
 
-                //context.Consumers.Add(consumer);
+            //    //context.Consumers.Add(consumer);
 
-                //context.Devices.Add(new Device()
-                //{
-                //    Consumer = consumer,
-                //    DeviceId = System.Guid.NewGuid(),
-                //    Description = "Test",
-                //    RegisteredOn = System.DateTime.Now
-                //});
+            //    //context.Devices.Add(new Device()
+            //    //{
+            //    //    Consumer = consumer,
+            //    //    DeviceId = System.Guid.NewGuid(),
+            //    //    Description = "Test",
+            //    //    RegisteredOn = System.DateTime.Now
+            //    //});
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
 
             Log.Information("Service started.");
 

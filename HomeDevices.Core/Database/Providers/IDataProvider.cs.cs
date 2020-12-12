@@ -1,10 +1,9 @@
-﻿using HomeDevices.Database.Models;
+﻿using HomeDevices.Core.Database.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace HomeDevices.Database.Providers
+namespace HomeDevices.Core.Database.Providers
 {
     public interface IDataProvider
     {

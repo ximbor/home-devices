@@ -1,5 +1,5 @@
 ﻿using HomeDevices.Controllers;
-using HomeDevices.Database.Models;
+using HomeDevices.Core.Database.Models;
 using HomeDevices.Models;
 using HomeDevices.Tests.Fixtures;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +34,9 @@ namespace HomeDevices.Tests
         public async Task Should_Add_A_Device()
         {
             var consumerController = new ConsumersController(fixture.GetDataProvider());
-            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd()) as OkObjectResult).Value as Consumer;
+            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd() { 
+                Email = "test@mail.com"
+            }) as OkObjectResult).Value as Consumer;
 
             var device = new DeviceRequestAdd() {
                 Available = true,
@@ -61,7 +63,10 @@ namespace HomeDevices.Tests
         public async Task Should_Add_And_Update_A_Device()
         {
             var consumerController = new ConsumersController(fixture.GetDataProvider());
-            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd()) as OkObjectResult).Value as Consumer;
+            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd()
+            {
+                Email = "test@mail.com"
+            }) as OkObjectResult).Value as Consumer;
 
             var device = new DeviceRequestAdd()
             {
@@ -110,7 +115,10 @@ namespace HomeDevices.Tests
         public async Task Should_Add_And_Remove_A_Device()
         {
             var consumerController = new ConsumersController(fixture.GetDataProvider());
-            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd()) as OkObjectResult).Value as Consumer;
+            var consumer = (await consumerController.AddConsumer(new ConsumerRequestAdd()
+            {
+                Email = "test@mail.com"
+            }) as OkObjectResult).Value as Consumer;
 
             var device = new DeviceRequestAdd()
             {

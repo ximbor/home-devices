@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HomeDevices.Database.Models
+namespace HomeDevices.Core.Database.Models
 {
     public class Device
     {

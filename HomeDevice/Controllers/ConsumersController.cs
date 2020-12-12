@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HomeDevices.Database.Providers;
+using HomeDevices.Core.Database.Providers;
 using HomeDevices.Models;
 using Microsoft.AspNetCore.Mvc;
 

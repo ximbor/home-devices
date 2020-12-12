@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HomeDevices.Database.Models
+namespace HomeDevices.Core.Database.Models
 {
     public class Consumer
     {

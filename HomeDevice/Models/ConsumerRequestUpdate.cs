@@ -1,4 +1,4 @@
-﻿using HomeDevices.Database.Models;
+﻿using HomeDevices.Core.Database.Models;
 using System;
 using System.Collections.Generic;
 

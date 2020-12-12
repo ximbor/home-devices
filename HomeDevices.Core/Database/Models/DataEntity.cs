@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HomeDevices.Database.Models
+namespace HomeDevices.Core.Database.Models
 {
     public class DataEntity<T> where T : class
     {

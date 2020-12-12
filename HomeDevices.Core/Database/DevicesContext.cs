@@ -1,8 +1,8 @@
-﻿using HomeDevices.Database.Models;
+﻿using HomeDevices.Core.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 
-namespace HomeDevices.Database
+namespace HomeDevices.Core.Database
 {
     public class DevicesContext : DbContext
     {
@@ -11,12 +11,19 @@ namespace HomeDevices.Database
 
         public DevicesContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
+            InitDatabase();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             InitDevices(modelBuilder);
             InitConsumers(modelBuilder);
+        }
+
+        protected void InitDatabase()
+        {
+            Database.EnsureCreated();
+            SaveChanges();
         }
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿using HomeDevices.Controllers;
-using HomeDevices.Database.Models;
+using HomeDevices.Core.Database.Models;
 using HomeDevices.Models;
 using HomeDevices.Tests.Fixtures;
 using Microsoft.AspNetCore.Mvc;
