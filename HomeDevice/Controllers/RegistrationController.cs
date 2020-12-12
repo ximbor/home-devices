@@ -11,6 +11,12 @@ namespace HomeDevices.Controllers
     [ApiController]
     public class RegistrationController : ControllerBase
     {
+
+        public RegistrationController()
+        {
+
+        }
+
         //private readonly IServiceRegistration _serviceRegistration;
 
         //public RegistrationController(

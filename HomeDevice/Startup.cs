@@ -1,6 +1,5 @@
 using HomeDevices.Database;
-using HomeDevices.Database.Models;
-using HomeDevices.Database.Services;
+using HomeDevices.Database.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,7 @@ namespace HomeDevices
             services.AddDbContext<DevicesContext>(options =>
                 options.UseNpgsql($"Host={System.Environment.MachineName};Database=DEVICES;Username=homedev;Password=homedev"));
 
-            services.AddTransient<IDevicesService, DevicesService>();
+            services.AddTransient<IDataProvider, DataProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,13 +46,27 @@ namespace HomeDevices
                 var context = serviceScope.ServiceProvider.GetService<DevicesContext>();
                 context.Database.EnsureCreated();
 
-                // Test data
-                context.Devices.Add(new Device()
-                {
-                    DeviceId = System.Guid.NewGuid(),
-                    Description = "Test",
-                    RegisteredOn = System.DateTime.Now
-                });
+                //// Test data
+                //var consumerId = System.Guid.NewGuid();
+
+                //var consumer = new Consumer()
+                //{
+                //    ConsumerId = consumerId,
+                //    FirstName = "Simone",
+                //    LastName = "Borda",
+                //    Address = "Via xxx",
+                //    Email = "simoneb81@gmail.com"
+                //};
+
+                //context.Consumers.Add(consumer);
+
+                //context.Devices.Add(new Device()
+                //{
+                //    Consumer = consumer,
+                //    DeviceId = System.Guid.NewGuid(),
+                //    Description = "Test",
+                //    RegisteredOn = System.DateTime.Now
+                //});
 
                 context.SaveChanges();
             }
