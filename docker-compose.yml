@@ -2,6 +2,21 @@ version: "3.4"
 
 services:
 
+    home-dev:
+        depends_on: 
+            - database
+        restart: on-failure
+        environment:
+            - ASPNETCORE_URLS=http://+:5050
+            - DB_PWD=homedev
+            - DB_USERNAME=homedev
+            - DB_NAME=DEVICES
+            - DB_SERVER=database
+        ports:
+            - "5050:5050"
+        build:
+            context: .
+
     database:
         image: postgres
         restart: on-failure
@@ -15,6 +30,8 @@ services:
 
     pgadmin:
         image: dpage/pgadmin4:4.18
+        depends_on: 
+            - database
         restart: on-failure
         container_name: homedev-db-admin
         depends_on:

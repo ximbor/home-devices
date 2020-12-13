@@ -14,7 +14,7 @@ namespace HomeDevices.Core.Database.Providers
         public Task<Device> DeviceAdd(Device Device);
         public Task<Device> DeviceUpdate(Device Device);
         public Task<Device> DeviceDelete(Device Device);
-        public Task<Device> DeviceDelete(Guid ConsumerId);
+        public Task<Device> DeviceDelete(Guid DeviceId);
 
         #endregion
 

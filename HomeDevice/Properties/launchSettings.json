@@ -4,7 +4,12 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "SERVICE_ID": "home-dev-00001",
+        "DB_USERNAME": "homedev",
+        "DB_NAME": "DEVICES",
+        "LOG_LEVEL": "DEFAULT",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_PWD": "homedev"
       },
       "applicationUrl": "http://localhost:5000"
     }

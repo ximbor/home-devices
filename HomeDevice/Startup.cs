@@ -1,5 +1,7 @@
-using HomeDevices.Core.Database;
+﻿using HomeDevices.Core.Database;
 using HomeDevices.Core.Database.Providers;
+using HomeDevices.Extensions;
+using HomeDevices.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +20,26 @@ namespace HomeDevices
               .AddEnvironmentVariables()
               .Build();
 
+            var homeDevConfiguration = new HomeDevicesConfiguration()
+            {
+                // Default service configuration:
+                ServiceId = "homde-dev",
+                LogLevel = "DEBUG",
+                DatabaseServer = System.Environment.MachineName,
+                DatabaseName = "homedev",
+                DatabaseUsername = "DEVICES",
+                DatabasePassword = "homedev"                
+            };
+            homeDevConfiguration.SetEnvironmentConfiguration(appConfiguration);
+            homeDevConfiguration.LogConfiguration();
+
             services.AddControllers();
             services.AddHealthChecks().AddCheck<HealthCheck>("health-check");
             services.AddDbContext<DevicesContext>(options =>
-                options.UseNpgsql($"Host={System.Environment.MachineName};Database=DEVICES;Username=homedev;Password=homedev"));
+                options.UseNpgsql(homeDevConfiguration.GetConnectionString()));
 
             services.AddTransient<IDataProvider, DataProvider>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,37 +57,7 @@ namespace HomeDevices
                 endpoints.MapHealthChecks("/health");
             });
 
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    var context = serviceScope.ServiceProvider.GetService<DevicesContext>();
-            //    context.Database.EnsureCreated();
-
-            //    //// Test data
-            //    //var consumerId = System.Guid.NewGuid();
-
-            //    //var consumer = new Consumer()
-            //    //{
-            //    //    ConsumerId = consumerId,
-            //    //    FirstName = "Simone",
-            //    //    LastName = "Borda",
-            //    //    Address = "Via xxx",
-            //    //    Email = "simoneb81@gmail.com"
-            //    //};
-
-            //    //context.Consumers.Add(consumer);
-
-            //    //context.Devices.Add(new Device()
-            //    //{
-            //    //    Consumer = consumer,
-            //    //    DeviceId = System.Guid.NewGuid(),
-            //    //    Description = "Test",
-            //    //    RegisteredOn = System.DateTime.Now
-            //    //});
-
-            //    context.SaveChanges();
-            //}
-
-            Log.Information("Service started.");
+            app.UseSerilogRequestLogging();
 
         }
     }

@@ -36,6 +36,7 @@ namespace HomeDevices.Tests.Fixtures
 
             var dbContext = new DevicesContext(new DbContextOptionsBuilder().UseNpgsql(CONNECTION_STRING).Options);
             _dataProvider = new DataProvider(dbContext);
+
         }
 
         public DataProvider GetDataProvider()

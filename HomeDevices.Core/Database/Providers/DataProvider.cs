@@ -1,6 +1,9 @@
 ﻿using HomeDevices.Core.Database.Models;
+using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeDevices.Core.Database.Providers
@@ -20,32 +23,44 @@ namespace HomeDevices.Core.Database.Providers
         #region Devices
         public async Task<Device> DeviceAdd(Device Device)
         {
-            return await _deviceDataEntity.Add(Device);
+            var result = await _deviceDataEntity.Add(Device);
+            Log.Debug($"Device added - {Serialize(result)}");
+            return result;
         }
 
         public async Task<Device> DeviceDelete(Device Device)
         {
-            return await _deviceDataEntity.Remove(Device);
+            var result =  await _deviceDataEntity.Remove(Device);
+            Log.Debug($"Device removed - {Serialize(result.DeviceId)}");
+            return result;
         }
 
-        public async Task<Device> DeviceDelete(Guid ConsumerId)
+        public async Task<Device> DeviceDelete(Guid DeviceId)
         {
-            return await _deviceDataEntity.Remove(ConsumerId);
+            var result = await _deviceDataEntity.Remove(DeviceId);
+            Log.Debug($"Device removed - {Serialize(result.DeviceId)}");
+            return result;
         }
 
         public async Task<Device> DeviceGet(Guid Id)
         {
-            return await _deviceDataEntity.Get(Id);
+            var result = await _deviceDataEntity.Get(Id);
+            Log.Debug($"Device got - {Serialize(Id)}");
+            return result;
         }
 
         public async Task<IEnumerable<Device>> DevicesGet(Func<Device, bool> Predicate)
         {
-            return await _deviceDataEntity.Query(Predicate);
+            var result = await _deviceDataEntity.Query(Predicate);
+            Log.Debug($"Devices got - N. {result.ToList().Count}");
+            return result;
         }
 
         public async Task<IEnumerable<Device>> DevicesGet()
         {
-            return await _deviceDataEntity.GetAll();
+            var result = await _deviceDataEntity.GetAll();
+            Log.Debug($"Devices got - N. {result.ToList().Count}");
+            return result;
         }
 
         public async Task<Device> DeviceUpdate(Device Device)
@@ -92,7 +107,9 @@ namespace HomeDevices.Core.Database.Providers
                 obj.TenantId = Device.TenantId;
             }
 
-            return await _deviceDataEntity.Update(obj);
+            var result = await _deviceDataEntity.Update(obj);            
+            Log.Debug($"Device updated - {Serialize(result)}");
+            return result;
         }
 
         #endregion
@@ -100,32 +117,45 @@ namespace HomeDevices.Core.Database.Providers
         #region Consumers
         public async Task<Consumer> ConsumerAdd(Consumer Consumer)
         {
-            return await _consumerDataEntity.Add(Consumer);
+            var result = await _consumerDataEntity.Add(Consumer);
+            Log.Debug($"Consumer added - {Serialize(result)}");
+            return result;
         }
 
         public async Task<Consumer> ConsumerDelete(Consumer Consumer)
         {
-            return await _consumerDataEntity.Remove(Consumer);
+            var result = await _consumerDataEntity.Remove(Consumer);
+            Log.Debug($"Consumer removed - {Serialize(result.ConsumerId)}");
+            return result;
         }
 
         public async Task<Consumer> ConsumerDelete(Guid ConsumerId)
         {
-            return await _consumerDataEntity.Remove(ConsumerId);
+            var result = await _consumerDataEntity.Remove(ConsumerId);
+            Log.Debug($"Consumer removed - {Serialize(result.ConsumerId)}");
+            return result;
         }
 
         public async Task<IEnumerable<Consumer>> ConsumerGet(Func<Consumer, bool> Predicate)
         {
-            return await _consumerDataEntity.Query(Predicate);
+            var result = await _consumerDataEntity.Query(Predicate);
+            Log.Debug($"Consumers got - N. {result.ToList().Count}");
+            return result;
         }
 
         public async Task<Consumer> ConsumerGet(Guid Id)
         {
-            return await _consumerDataEntity.Get(Id);
+            var result = await _consumerDataEntity.Get(Id);
+            Log.Debug($"Consumer got - {Serialize(Id)}");
+            return result;
+
         }
 
         public async Task<IEnumerable<Consumer>> ConsumersGet()
         {
-            return await _consumerDataEntity.GetAll();
+            var result = await _consumerDataEntity.GetAll();
+            Log.Debug($"Consumers got - N. {result.ToList().Count}");
+            return result;
         }
 
         public async Task<Consumer> ConsumerUpdate(Consumer Consumer)
@@ -157,9 +187,19 @@ namespace HomeDevices.Core.Database.Providers
                 obj.LastName = Consumer.LastName;
             }
 
-            return await _consumerDataEntity.Update(obj);
+            var result = await _consumerDataEntity.Update(obj);
+            Log.Debug($"Consumer updated - {Serialize(result)}");
+            return result;
         }
         #endregion
 
+
+        private string Serialize(dynamic obj)
+        {
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
+        }
     }
 }
