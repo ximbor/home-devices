@@ -3,19 +3,43 @@
 POC web application to manage consumers and devices entities for an IoT architecture.
 The following sections describe the global acrchitecture and en example of implementation on Google Cloud.
 
+
+Requirements
+============
+
+This application has been developed using:
+
+Visual Studio 2019
+.NET Core 3.1
+
+In order to run the application docker (and docker-compose) must be installed.
+
+It has been tested with the following versions:
+
+Docker: version 20.10.0, build 7287ab3\
+Docker-compose: 1.27.4, build 40524192
+
+\
+Instructions
+============
+
+In order to build and start the application run the following command:
+
+> docker-compose build --no-cache && docker-compose up -d
+
 \
 Global architecture
-=====
+===================
 
 The selected model is compose of the following layers:
 
 1.  **External layer**
 
--   [Remote devices]{.ul};
+    -   [Remote devices]{.ul};
 
--   [Clients and provisioners]{.ul}, that allow the users to manage,
-    register and provision the devices.
-\
+    -   [Clients and provisioners]{.ul}, that allow the users to manage,
+        register and provision the devices.
+
 
 2.  **Access Layer**
 
@@ -29,7 +53,7 @@ The selected model is compose of the following layers:
         interaction between the remote devices and the back-end
         layer, that forwards the data between the remote devices and
         to the business layer.
-\
+
 
 3.  **Business and data layer**
 
@@ -55,7 +79,7 @@ The selected model is compose of the following layers:
         such as exposing the APIs to interact with the databases,
         analytics and metrics.
 
-\
+
 **Deployment diagram** of the described architecture:
 
 ![deployment.png](./Documentation/md_media/media/image1.png)
@@ -101,7 +125,7 @@ Implementation on Google Cloud Platform
 
     -   **Kubernetes**: represents a cluster of nodes that can be used for
         custom services scheduling, scaling and interaction.
-\
+
 
 3.  **Data layer**
 

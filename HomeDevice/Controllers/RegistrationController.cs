@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using HomeDevices.Models;
 
 namespace HomeDevices.Controllers
 {
@@ -17,67 +18,47 @@ namespace HomeDevices.Controllers
 
         }
 
-        //private readonly IServiceRegistration _serviceRegistration;
+        [HttpPost("device/register/{serviceId}")]
+        public async Task<IActionResult> RegisterDevice([FromRoute] string DeviceId, [FromBody] DeviceRegistrationRequest deviceRegistrationRequest)
+        {
+            try
+            {
+                if (deviceRegistrationRequest.DeviceId != DeviceId)
+                {
+                    throw new ApplicationException("The device id posted does not correspond to the device id specified in the URL.");
+                }
 
-        //public RegistrationController(
-        //    IServiceRegistration serviceRegistration
-        //)
-        //{
-        //    _serviceRegistration = serviceRegistration;
-        //}
+                throw new NotImplementedException("Devices registration is not available at the moment.");
 
-        //[HttpPost("register/{serviceId}")]
-        //public async Task<IActionResult> Register([FromRoute] string serviceId, [FromBody] ServiceRegistrationRequest serviceRegistrationRequest)
-        //{
-        //    try
-        //    {
-        //        if (serviceRegistrationRequest.ServiceId != serviceId)
-        //        {
-        //            throw new ApplicationException("The service id posted does not correspond to the service id specified in the URL.");
-        //        }
+            }
+            catch (Exception exc)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exc);
+            }
 
-        //        bool result = await _serviceRegistration.Register(serviceId, serviceRegistrationRequest.Host,
-        //            serviceRegistrationRequest.Port, serviceRegistrationRequest.Scheme);
+            return Ok();
+        }
 
-        //    }
-        //    catch (Exception exc)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, exc);
-        //    }
+        [HttpPost("consumer/register/{serviceId}")]
+        public async Task<IActionResult> RegisterConsumer([FromRoute] string ConsumerId, [FromBody] ConsumerRegistrationRequest consumerRegistrationRequest)
+        {
+            try
+            {
+                if (consumerRegistrationRequest.ConsumerId != ConsumerId)
+                {
+                    throw new ApplicationException("The consumer id posted does not correspond to the consumer id specified in the URL.");
+                }
 
-        //    return Ok();
-        //}
+                throw new NotImplementedException("Consumers registration is not available at the moment.");
 
-        //[HttpPost("deregister/{serviceId}")]
-        //public async Task<IActionResult> Deregister([FromRoute] string serviceId)
-        //{
-        //    try
-        //    {
-        //        bool result = await _serviceRegistration.Deregister(serviceId);
+            }
+            catch (Exception exc)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exc);
+            }
 
-        //    }
-        //    catch (Exception exc)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, exc);
-        //    }
+            return Ok();
+        }
 
-        //    return Ok();
-        //}
-
-        //[HttpGet("devices")]
-        //public async Task<List<string>> GetDevices()
-        //{
-        //    var result = new List<string>();
-
-        //    try
-        //    {
-        //        result = (await _serviceRegistration.GetServices()).ToList();
-        //        return result;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
     }
 }
