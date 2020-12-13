@@ -1,17 +1,10 @@
 # home-devices
 
-\
-Purpose
-=======
-
-This document provides a high level overview and explains the
-architecture of the Home-Dev system.
-
-The document defines goals of the architecture, architectural styles and
-components that have been selected.
+POC web application to manage consumers and devices entities for an IoT architecture.
+The following sections describe the global acrchitecture and en example of implementation on Google Cloud.
 
 \
-Model
+Global architecture
 =====
 
 The selected model is compose of the following layers:
