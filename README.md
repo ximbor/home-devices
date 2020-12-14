@@ -49,21 +49,21 @@ The selected model is compose of the following layers:
 
 1.  **External layer**
 
-    -   [Remote devices]{.ul};
+    -   Remote devices;
 
-    -   [Clients and provisioners]{.ul}, that allow the users to manage,
+    -   Clients and provisioners, that allow the users to manage,
         register and provision the devices.
 
 
 2.  **Access Layer**
 
-    -   [Web Portal]{.ul}: allows the clients to interact with the
+    -   Web Portal: allows the clients to interact with the
         platform using a web application;
 
-    -   [Web APIs]{.ul}: allows to the clients, provisioners and
+    -   Web APIs: allows to the clients, provisioners and
         WebPortal to interact with the business layer;
 
-    -   [Data ingestion and devices management]{.ul}: represents the
+    -   Data ingestion and devices management: represents the
         interaction between the remote devices and the back-end
         layer, that forwards the data between the remote devices and
         to the business layer.
@@ -71,24 +71,24 @@ The selected model is compose of the following layers:
 
 3.  **Business and data layer**
 
-    -   [Data transformation]{.ul}: it is in charge of adapting and
+    -   Data transformation: it is in charge of adapting and
         transforming the data coming from the devices before storing
         them or before forwarding them to the server-less functions.
 
-    -   [Faas]{.ul}: server-less functions that can be created ad
+    -   Faas: server-less functions that can be created ad
         hoc to perform custom task on stream data
 
-    -   [Data analytics and predictive models]{.ul}: back-end
+    -   Data analytics and predictive models: back-end
         services that analyze devices and platform data in order to
         provide features based on AI, predictive models and metrics
         related to the remote devices.
 
-    -   [Persistence layer]{.ul}: it's composed of a NoSQL database
+    -   Persistence layer: it's composed of a NoSQL database
         to store IoT information related to the streams coming the
         remote devices and a relational database to manage the
         registry of the devices, tenants and consumers.
 
-    -   [Custom back-end services]{.ul}: represents a cluster of
+    -   Custom back-end services: represents a cluster of
         nodes of custom services that can be used for custom tasks
         such as exposing the APIs to interact with the databases,
         analytics and metrics.
