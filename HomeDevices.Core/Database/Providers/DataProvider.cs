@@ -1,4 +1,6 @@
-﻿using HomeDevices.Core.Database.Models;
+﻿using HomeDevices.Core.Database.Exceptions;
+using HomeDevices.Core.Database.Models;
+using HomeDevices.Core.Utils;
 using Newtonsoft.Json;
 using Serilog;
 using System;
@@ -23,29 +25,70 @@ namespace HomeDevices.Core.Database.Providers
         #region Devices
         public async Task<Device> DeviceAdd(Device Device)
         {
+            if(Device.ConsumerId==null && Device.Consumer==null)
+            {
+                throw new EntityNotFoundException("Consumer id not provided while adding a device", Device);
+            }
+
+            if (Device.ConsumerId != null)
+            {
+                var consumer = ConsumerGet(Device.ConsumerId);
+                if(consumer == null)
+                {
+                    throw new EntityNotFoundException("Could not add the device, consumer id does not exist.", Device);
+                }
+                
+            } else
+            {
+                var consumer = ConsumerGet(Device.Consumer.ConsumerId);
+                if (consumer == null)
+                {
+                    throw new EntityNotFoundException($"Could not add the device, consumer id {Device.Consumer.ConsumerId} does not exist.", Device);
+                }
+            }
+
             var result = await _deviceDataEntity.Add(Device);
-            Log.Debug($"Device added - {Serialize(result)}");
+            Log.Debug($"Device added - { Serializer.Serialize(result)}");
             return result;
         }
 
         public async Task<Device> DeviceDelete(Device Device)
         {
+            if (Device == null)
+            {
+                throw new ApplicationException($"Please specify the device to delete.");
+            }
+
             var result =  await _deviceDataEntity.Remove(Device);
-            Log.Debug($"Device removed - {Serialize(result.DeviceId)}");
+            if (result == null)
+            {
+                throw new EntityNotFoundException($"Device with ID={Device.DeviceId} not found", Device.DeviceId);
+            }
+            Log.Debug($"Device removed - {Serializer.Serialize(result.DeviceId)}");
             return result;
         }
 
         public async Task<Device> DeviceDelete(Guid DeviceId)
         {
             var result = await _deviceDataEntity.Remove(DeviceId);
-            Log.Debug($"Device removed - {Serialize(result.DeviceId)}");
+            if (result == null)
+            {
+                throw new EntityNotFoundException($"Device with ID={DeviceId} not found", DeviceId);
+            }
+            Log.Debug($"Device removed - {Serializer.Serialize(result.DeviceId)}");
             return result;
         }
 
         public async Task<Device> DeviceGet(Guid Id)
         {
             var result = await _deviceDataEntity.Get(Id);
-            Log.Debug($"Device got - {Serialize(Id)}");
+
+            if(result == null)
+            {
+                throw new EntityNotFoundException($"Device with ID={Id} not found", Id);
+            }
+
+            Log.Debug($"Device got - {Serializer.Serialize(Id)}");
             return result;
         }
 
@@ -65,7 +108,37 @@ namespace HomeDevices.Core.Database.Providers
 
         public async Task<Device> DeviceUpdate(Device Device)
         {
+
+            if (Device.ConsumerId == null && Device.Consumer == null)
+            {
+                throw new ApplicationException("Consumer id not provided while updating a device");
+            }
+
+            if (Device.ConsumerId != null)
+            {
+                var consumer = ConsumerGet(Device.ConsumerId);
+                if (consumer == null)
+                {
+                    throw new EntityNotFoundException("Could not update the device, consumer id does not exist.", Device.ConsumerId);
+                }
+
+            }
+            else
+            {
+                var consumer = ConsumerGet(Device.Consumer.ConsumerId);
+                if (consumer == null)
+                {
+                    throw new EntityNotFoundException($"Could not update the device, consumer id {Device.Consumer.ConsumerId} does not exist.",
+                        Device.Consumer.ConsumerId);
+                }
+            }
+
             var obj = await DeviceGet(Device.DeviceId);
+
+            if(obj == null)
+            {
+                throw new EntityNotFoundException($"Could not update the device, device not found.", Device.DeviceId);
+            }
 
             if (Device.Available != null)
             {
@@ -107,8 +180,9 @@ namespace HomeDevices.Core.Database.Providers
                 obj.TenantId = Device.TenantId;
             }
 
+            Log.Debug($"Device updating (Id={Device.DeviceId}) - {Serializer.Serialize(obj)}");
             var result = await _deviceDataEntity.Update(obj);            
-            Log.Debug($"Device updated - {Serialize(result)}");
+            Log.Debug($"Device updated - {Serializer.Serialize(result)}");
             return result;
         }
 
@@ -118,21 +192,38 @@ namespace HomeDevices.Core.Database.Providers
         public async Task<Consumer> ConsumerAdd(Consumer Consumer)
         {
             var result = await _consumerDataEntity.Add(Consumer);
-            Log.Debug($"Consumer added - {Serialize(result)}");
+            Log.Debug($"Consumer added - {Serializer.Serialize(result)}");
             return result;
         }
 
         public async Task<Consumer> ConsumerDelete(Consumer Consumer)
         {
+            if (Consumer == null)
+            {
+                throw new ApplicationException($"Please specify the consumer to delete.");
+            }
+
             var result = await _consumerDataEntity.Remove(Consumer);
-            Log.Debug($"Consumer removed - {Serialize(result.ConsumerId)}");
+
+            if (result == null)
+            {
+                throw new EntityNotFoundException($"Consumer with ID={Consumer.ConsumerId} not found", Consumer.ConsumerId);
+            }
+
+            Log.Debug($"Consumer removed - {Serializer.Serialize(result.ConsumerId)}");
             return result;
         }
 
         public async Task<Consumer> ConsumerDelete(Guid ConsumerId)
         {
             var result = await _consumerDataEntity.Remove(ConsumerId);
-            Log.Debug($"Consumer removed - {Serialize(result.ConsumerId)}");
+
+            if (result == null)
+            {
+                throw new EntityNotFoundException($"Consumer with ID={ConsumerId} not found", ConsumerId);
+            }
+
+            Log.Debug($"Consumer removed - {Serializer.Serialize(result.ConsumerId)}");
             return result;
         }
 
@@ -146,7 +237,13 @@ namespace HomeDevices.Core.Database.Providers
         public async Task<Consumer> ConsumerGet(Guid Id)
         {
             var result = await _consumerDataEntity.Get(Id);
-            Log.Debug($"Consumer got - {Serialize(Id)}");
+
+            if (result == null)
+            {
+                throw new EntityNotFoundException($"Consumer with ID={Id} not found", Id);
+            }
+
+            Log.Debug($"Consumer got - {Serializer.Serialize(Id)}");
             return result;
 
         }
@@ -160,7 +257,17 @@ namespace HomeDevices.Core.Database.Providers
 
         public async Task<Consumer> ConsumerUpdate(Consumer Consumer)
         {
+            if (Consumer == null)
+            {
+                throw new ApplicationException($"Please provide a consumer to update.");
+            }
+
             var obj = await ConsumerGet(Consumer.ConsumerId);
+
+            if (obj == null)
+            {
+                throw new EntityNotFoundException($"Could not update the consumer, consumer not found.", Consumer.ConsumerId);
+            }
 
             if(Consumer.Address != null)
             {
@@ -187,19 +294,12 @@ namespace HomeDevices.Core.Database.Providers
                 obj.LastName = Consumer.LastName;
             }
 
+            Log.Debug($"Device updating (Id={Consumer.ConsumerId}) - {Serializer.Serialize(obj)}");
             var result = await _consumerDataEntity.Update(obj);
-            Log.Debug($"Consumer updated - {Serialize(result)}");
+            Log.Debug($"Consumer updated - {Serializer.Serialize(result)}");
             return result;
         }
         #endregion
 
-
-        private string Serialize(dynamic obj)
-        {
-            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
-            {
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
-            });
-        }
     }
 }

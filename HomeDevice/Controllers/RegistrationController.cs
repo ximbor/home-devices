@@ -33,10 +33,10 @@ namespace HomeDevices.Controllers
             }
             catch (Exception exc)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, exc);
+                return await Task.Run(() => StatusCode(StatusCodes.Status501NotImplemented, exc));
             }
 
-            return Ok();
+            // return Ok();
         }
 
         [HttpPost("consumer/register/{serviceId}")]
@@ -54,10 +54,10 @@ namespace HomeDevices.Controllers
             }
             catch (Exception exc)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, exc);
+                return await Task.Run(() => StatusCode(StatusCodes.Status501NotImplemented, exc));
             }
 
-            return Ok();
+            // return Ok();
         }
 
     }

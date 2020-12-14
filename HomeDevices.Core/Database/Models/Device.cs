@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 
 namespace HomeDevices.Core.Database.Models
 {
-    public class Device
+    public class Device: ModelEntity
     {
         public Guid DeviceId { get; set; }
 

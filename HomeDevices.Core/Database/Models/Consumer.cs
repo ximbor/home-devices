@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace HomeDevices.Core.Database.Models
 {
-    public class Consumer
+    public class Consumer : ModelEntity
     {
 
         public Guid ConsumerId { get; set; }

@@ -142,12 +142,11 @@ namespace HomeDevices.Tests
             Assert.Equal(foundItem, added.Value);
 
             var deleteResult = await controller.RemoveDevice(foundItem.DeviceId.ToString());
-            foundItem = (await controller.GetDevice((added.Value as Device).DeviceId.ToString()) as OkObjectResult)
-                .Value as Device;
-            Assert.Null(foundItem);
+            var foundItem2 = await controller.GetDevice((added.Value as Device).DeviceId.ToString()) as NotFoundObjectResult;
+            Assert.Equal(foundItem2.StatusCode, (int)HttpStatusCode.NotFound);
+
         }
-
-
     }
+
 }
 

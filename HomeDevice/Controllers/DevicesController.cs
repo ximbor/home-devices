@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeDevices.Core.Database.Exceptions;
 using HomeDevices.Core.Database.Providers;
 using HomeDevices.Models;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,10 @@ namespace HomeDevices.Controllers
             {
                 return BadRequest("Please specify a valid guid for the device.");
             }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -60,6 +65,10 @@ namespace HomeDevices.Controllers
             {
                 var result = await _dataProvider.DeviceAdd(Request.ToDevice());
                 return Ok(result);
+            }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
             }
             catch (Exception)
             {
@@ -84,6 +93,10 @@ namespace HomeDevices.Controllers
             {
                 return BadRequest("Please specify a valid guid for the device.");
             }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -102,6 +115,10 @@ namespace HomeDevices.Controllers
             catch (FormatException)
             {
                 return BadRequest("Please specify a valid guid for the device.");
+            }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
             }
             catch (Exception)
             {

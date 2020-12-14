@@ -20,12 +20,27 @@ Docker: version 20.10.0, build 7287ab3\
 Docker-compose: 1.27.4, build 40524192
 
 \
+
 Instructions
 ============
 
 In order to build and start the application run the following command:
 
 > docker-compose build --no-cache && docker-compose up -d
+ 
+Once started, the web service will be available at the URL **http://localhost:5050**.
+Available endpoints:
+ - Swagger: **http://localhost:5050/doc**
+ - Metrics (Prometheus): **http://localhost:5050/metrics**
+ - Health check: **http://localhost:5050/health**
+
+\
+Integration tests
+=================
+
+In order to test the application, run the following command (require .NET Core 3.1):
+
+> dotnet test ./HomeDevice/HomeDevices.sln
 
 \
 Global architecture

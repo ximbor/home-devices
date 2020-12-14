@@ -12,6 +12,5 @@ namespace HomeDevices.Models
 
         public string ConsumerId { get; set; }
 
-        public string RsaKey { get; set; }
     }
 }

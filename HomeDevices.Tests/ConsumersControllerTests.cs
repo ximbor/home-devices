@@ -112,9 +112,8 @@ namespace HomeDevices.Tests
                 .Value as Consumer;
             Assert.Equal(foundItem, added.Value);
             var deleteResult = await controller.RemoveConsumer(foundItem.ConsumerId.ToString());
-            foundItem = (await controller.GetConsumer((added.Value as Consumer).ConsumerId.ToString()) as OkObjectResult)
-                .Value as Consumer;
-            Assert.Null(foundItem);
+            var foundItem2 = (await controller.GetConsumer((added.Value as Consumer).ConsumerId.ToString()) as NotFoundObjectResult);
+            Assert.Equal(foundItem2.StatusCode, (int)HttpStatusCode.NotFound);
         }
 
 

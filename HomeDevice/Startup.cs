@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Prometheus;
 using Serilog;
 
 namespace HomeDevices
@@ -40,14 +41,23 @@ namespace HomeDevices
 
             services.AddTransient<IDataProvider, DataProvider>();
 
+            services.AddSwaggerGen();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+            // Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Home-dev API V1");
+                c.RoutePrefix = "doc";
+            });
+
+            // Prometheus metrics:
+            app.UseMetricServer();
+            app.UseHttpMetrics();
 
             app.UseRouting();
 

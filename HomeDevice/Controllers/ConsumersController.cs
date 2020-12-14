@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeDevices.Core.Database.Exceptions;
 using HomeDevices.Core.Database.Providers;
 using HomeDevices.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,10 @@ namespace HomeDevices.Controllers
                 var result = await _dataProvider.ConsumersGet();
                 return Ok(result);
             }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -46,6 +51,10 @@ namespace HomeDevices.Controllers
             {
                 return BadRequest("Please specify a valid guid for the consumer.");
             }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -59,6 +68,10 @@ namespace HomeDevices.Controllers
             {
                 var result = await _dataProvider.ConsumerAdd(Request.ToConsumer());
                 return Ok(result);
+            }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
             }
             catch (Exception)
             {
@@ -83,6 +96,10 @@ namespace HomeDevices.Controllers
             {
                 return BadRequest("Please specify a valid guid for the consumer.");
             }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
+            }
             catch (Exception)
             {
                 throw;
@@ -101,6 +118,10 @@ namespace HomeDevices.Controllers
             catch(FormatException)
             {
                 return BadRequest("Please specify a valid guid for the consumer.");
+            }
+            catch (EntityNotFoundException exc)
+            {
+                return NotFound(exc.Message);
             }
             catch (Exception)
             {

@@ -7,11 +7,12 @@
         "SERVICE_ID": "home-dev-00001",
         "DB_USERNAME": "homedev",
         "DB_NAME": "DEVICES",
+        "DB_SERVER": "localhost",
         "LOG_LEVEL": "DEFAULT",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DB_PWD": "homedev"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:5050"
     }
   }
 }
