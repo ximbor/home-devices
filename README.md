@@ -1,6 +1,6 @@
 # home-devices
 
-POC web application to manage consumers and devices entities for an IoT architecture.
+POC web application to manage consumers and devices entities for an IoT architecture.\
 The following sections describe the global acrchitecture and en example of implementation on Google Cloud.
 
 
@@ -9,11 +9,10 @@ Requirements
 
 This application has been developed using:
 
-Visual Studio 2019
+Visual Studio 2019\
 .NET Core 3.1
 
-In order to run the application docker (and docker-compose) must be installed.
-
+In order to run the application docker (and docker-compose) must be installed.\
 It has been tested with the following versions:
 
 Docker: version 20.10.0, build 7287ab3\
@@ -27,8 +26,9 @@ In order to build and start the application run the following command:
 
 > docker-compose build --no-cache && docker-compose up -d
  
-Once started, the web service will be available at the URL **http://localhost:5050**.
+Once started, the web service will be available at the URL **http://localhost:5050**.\
 Available endpoints:
+
  - Swagger: **http://localhost:5050/doc**
  - Metrics (Prometheus): **http://localhost:5050/metrics**
  - Health check: **http://localhost:5050/health**
@@ -45,7 +45,7 @@ In order to test the application, run the following command (require .NET Core 3
 Global architecture
 ===================
 
-The selected model is compose of the following layers:
+The selected model is composed of the following layers:
 
 1.  **External layer**
 
