@@ -19,7 +19,6 @@ It has been tested with the following versions:
 Docker: version 20.10.0, build 7287ab3\
 Docker-compose: 1.27.4, build 40524192
 
-\
 
 Instructions
 ============
