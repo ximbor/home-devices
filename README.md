@@ -1,7 +1,7 @@
 # home-devices
 
 POC web application to manage consumers and devices entities for an IoT architecture.\
-The following sections describe the global acrchitecture and en example of implementation on Google Cloud.
+The following sections describe the global acrchitecture and an example of implementation on Google Cloud.
 
 
 Requirements
